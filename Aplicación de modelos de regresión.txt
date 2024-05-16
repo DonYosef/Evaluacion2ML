@@ -1,0 +1,192 @@
+# Importar las bibliotecas necesarias
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.svm import SVR
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+
+
+
+
+
+#  'df' es tu DataFrame
+
+# Seleccionar las características (X) y la variable objetivo (y)
+X = df.drop('Price', axis=1)
+y = df['Price']
+
+# Dividir el conjunto de datos en entrenamiento (80%) y prueba (20%)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+
+
+
+
+
+Regresión lineal 
+
+# Crear y entrenar el modelo de regresión lineal
+linear_model = LinearRegression()
+linear_model.fit(X_train, y_train)
+linear_predictions = linear_model.predict(X_test)
+
+# Calcular métricas de regresión lineal
+linear_rmse = np.sqrt(mean_squared_error(y_test, linear_predictions))
+linear_mse = mean_squared_error(y_test, linear_predictions)
+linear_mae = mean_absolute_error(y_test, linear_predictions)
+linear_r2 = r2_score(y_test, linear_predictions)
+
+# Imprimir métricas de regresión lineal
+print(f'Regresión Lineal Metrics:')
+print(f'RMSE: {linear_rmse}')
+print(f'MSE: {linear_mse}')
+print(f'MAE: {linear_mae}')
+print(f'R^2 Score: {linear_r2}')
+
+
+
+
+
+
+
+
+Arboles de decisión
+
+# Crear y entrenar el modelo de árbol de decisión para regresión
+tree_model = DecisionTreeRegressor()
+tree_model.fit(X_train, y_train)
+tree_predictions = tree_model.predict(X_test)
+
+# Calcular métricas de árbol de decisión
+tree_rmse = np.sqrt(mean_squared_error(y_test, tree_predictions))
+tree_mse = mean_squared_error(y_test, tree_predictions)
+tree_mae = mean_absolute_error(y_test, tree_predictions)
+tree_r2 = r2_score(y_test, tree_predictions)
+
+# Imprimir métricas de árbol de decisión
+print(f'\nÁrbol de Decisión Metrics:')
+print(f'RMSE: {tree_rmse}')
+print(f'MSE: {tree_mse}')
+print(f'MAE: {tree_mae}')
+print(f'R^2 Score: {tree_r2}')
+
+
+
+
+
+
+
+
+
+
+
+Bosques aleatorios
+
+
+# Crear y entrenar el modelo de bosques aleatorios para regresión
+forest_model = RandomForestRegressor()
+forest_model.fit(X_train, y_train)
+forest_predictions = forest_model.predict(X_test)
+
+# Calcular métricas de bosques aleatorios
+forest_rmse = np.sqrt(mean_squared_error(y_test, forest_predictions))
+forest_mse = mean_squared_error(y_test, forest_predictions)
+forest_mae = mean_absolute_error(y_test, forest_predictions)
+forest_r2 = r2_score(y_test, forest_predictions)
+
+# Imprimir métricas de bosques aleatorios
+print(f'\nBosques Aleatorios Metrics:')
+print(f'RMSE: {forest_rmse}')
+print(f'MSE: {forest_mse}')
+print(f'MAE: {forest_mae}')
+print(f'R^2 Score: {forest_r2}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+KNN
+
+# Crear y entrenar el modelo de KNN para regresión
+knn_model = KNeighborsRegressor()
+knn_model.fit(X_train, y_train)
+knn_predictions = knn_model.predict(X_test)
+
+# Calcular métricas de KNN
+knn_rmse = np.sqrt(mean_squared_error(y_test, knn_predictions))
+knn_mse = mean_squared_error(y_test, knn_predictions)
+knn_mae = mean_absolute_error(y_test, knn_predictions)
+knn_r2 = r2_score(y_test, knn_predictions)
+
+# Imprimir métricas de KNN
+print(f'\nKNN Metrics:')
+print(f'RMSE: {knn_rmse}')
+print(f'MSE: {knn_mse}')
+print(f'MAE: {knn_mae}')
+print(f'R^2 Score: {knn_r2}')
+
+
+
+
+
+
+
+
+
+
+SVM
+
+# Crear y entrenar el modelo de SVM para regresión
+svm_model = SVR()
+svm_model.fit(X_train, y_train)
+svm_predictions = svm_model.predict(X_test)
+
+# Calcular métricas de SVM
+svm_rmse = np.sqrt(mean_squared_error(y_test, svm_predictions))
+svm_mse = mean_squared_error(y_test, svm_predictions)
+svm_mae = mean_absolute_error(y_test, svm_predictions)
+svm_r2 = r2_score(y_test, svm_predictions)
+
+# Imprimir métricas de SVM
+print(f'\nSVM Metrics:')
+print(f'RMSE: {svm_rmse}')
+print(f'MSE: {svm_mse}')
+print(f'MAE: {svm_mae}')
+print(f'R^2 Score: {svm_r2}')
+
+
+
+por lo general bosques aleatorios tiene el mejor puntaje y SVM tiene el peor puntaje para problemas de regresión.
+
+Los puntajes de los modelos de machine learning pueden variar por varias razones, y entender por qué un modelo tiene un mejor rendimiento que otro puede requerir un análisis detallado de los datos y de cómo se ajusta cada modelo.
+
+Capacidad de capturar relaciones no lineales: Los Bosques Aleatorios pueden capturar relaciones no lineales en los datos de manera efectiva al utilizar múltiples árboles de decisión. Esto puede ser beneficioso si tus datos tienen relaciones complejas que no pueden ser modeladas adecuadamente por una función lineal, como podría ser el caso en el modelo de regresión lineal o SVM con un kernel lineal.
+
+Robustez ante overfitting: Los Bosques Aleatorios tienden a ser menos propensos al sobreajuste (overfitting) en comparación con SVM, especialmente cuando se utilizan configuraciones razonables de hiperparámetros. SVM, por otro lado, puede ser más sensible al ajuste excesivo, especialmente si el hiperparámetro de regularización (C) no se ajusta adecuadamente.
+
+Manejo de características irrelevantes o redundantes: Los Bosques Aleatorios pueden manejar naturalmente características irrelevantes o redundantes al construir árboles de decisión, lo que puede conducir a un mejor rendimiento en comparación con SVM, que puede ser más sensible a estas características en ciertos casos.
+
+Sensibilidad a la escala de las características: SVM puede ser sensible a la escala de las características, especialmente en el caso de los kernels no lineales. Si las características no están correctamente escaladas, SVM podría tener un rendimiento inferior en comparación con Bosques Aleatorios, que no es tan sensible a este problema.
+
+
+
+
+
+
+
+
